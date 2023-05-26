@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  php:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    volumes:
+      - ./API:/var/www
+    networks:
+      - laravel
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./app:/var/www
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - laravel
+  db:
+    image: postgres:10.17
+    environment:
+      - "POSTGRES_DB=laravel"
+      - "POSTGRES_USER=laravel"
+      - "POSTGRES_PASSWORD=secreto1"
+    networks:
+      - laravel
+    ports:
+      - "5441:5432"
+    volumes:
+      - postgres-teste-dev:/var/lib/postgresql/data
+
+networks:
+  laravel:
+
+
+volumes:
+  postgres-teste-dev: 
