@@ -28,6 +28,8 @@ Route::get('/ping', function () {
 Route::prefix('service_orders')->group(function () {
     Route::get('/all', [ServiceOrderController::class, 'getAllServiceOrders']);
     Route::get('/{page?}/{vehiclePlate?}', [ServiceOrderController::class, 'getServiceOrders']);
+
+    Route::post('/add', [ServiceOrderController::class, 'addServiceOrder']);
 });
 
 

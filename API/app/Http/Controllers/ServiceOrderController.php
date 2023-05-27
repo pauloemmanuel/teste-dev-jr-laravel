@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\serviceOrder;
+use App\Http\Requests\ServiceOrdersPostRequest;
+use App\Models\ServiceOrder;
+use App\Models\User;
 use App\Models\ValidationMessages;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ServiceOrderController extends Controller
 {
+    public const ERROR_USER_NOT_FOUND = 'Usuário não encontrado, favor informar um userID válido';
     public function getAllServiceOrders(){
-        $serviceOrders = serviceOrder::getAllServicesOrders();  
+        $serviceOrders = ServiceOrder::getAllServicesOrders();  
         if($serviceOrders->count() > 0){
             $payload = ['service_orders' => $serviceOrders];
             return $this->handleSucess($payload);
@@ -36,7 +40,7 @@ class ServiceOrderController extends Controller
            return $this->handleValidationError($validator);
         }
 
-        $serviceOrders = serviceOrder::getServicesOrdersByPage($page,$vehiclePlate);  
+        $serviceOrders = ServiceOrder::getServicesOrdersByPage($page,$vehiclePlate);  
         
         if($vehiclePlate != null){
             $serviceOrders->where('vehiclePlate',$vehiclePlate);
@@ -49,5 +53,32 @@ class ServiceOrderController extends Controller
             return $this->handlePaginateNotFoundError($page);
         }
 
+    }
+
+    public function addServiceOrder(Request $request){
+        $validator = Validator::make($request->all(), ServiceOrdersPostRequest::RULES,ServiceOrdersPostRequest::MESSAGES);
+        
+        if($validator->fails()){
+            return $this->handleValidationError($validator);
+         }
+
+        $validatedData = $validator->validated();
+        
+        try{
+            $user = User::find($validatedData['userId']);
+            if(!empty($user->id)){
+                $service_order = ServiceOrder::create($validatedData);
+                $payload = ['service_order_id' => $service_order->id];
+                return $this->handleSucess($payload);
+            }else{
+                $payload = ['erro' => self::ERROR_USER_NOT_FOUND];
+                return $this->handleUnexpectedError($payload);
+            }
+        }catch(Exception $exception){
+            Log::error($exception);
+            $payloadException = ['error' => $exception->getMessage()];
+            return $this->handleUnexpectedError($payloadException);
+        }     
+        
     }
 }

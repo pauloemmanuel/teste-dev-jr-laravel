@@ -61,8 +61,6 @@ class UserController extends Controller
         }
 
         $validatedData = $validator->validated();
-        Log::debug($validatedData);
-        Log::debug($validatedData['name']);
         try{
             $user = User::create([
                 'name' => $validatedData['name'],
@@ -70,6 +68,7 @@ class UserController extends Controller
             $payload = ['user_id' => $user->id];
             return $this->handleSucess($payload);
         }catch(Exception $exception){
+            Log::error($exception);
             $payloadException = ['error' => $exception->getMessage()];
             return $this->handleUnexpectedError($payloadException);
         }        
