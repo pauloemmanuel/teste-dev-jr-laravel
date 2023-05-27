@@ -25,7 +25,7 @@ docker-compose up
 4. Abra o container do php
 
 ```shell 
-docker exec php bash
+docker-compose exec php bash
 ```
 
 5. Rode o comando composer update para atualização e instalação dos pacotes (Isso pode demorar um pouco)
