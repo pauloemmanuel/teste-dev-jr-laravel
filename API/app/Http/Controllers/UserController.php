@@ -35,8 +35,8 @@ class UserController extends Controller
         $users = User::getUsersByPage($page);  
         
         if($users->count() > 0){
-            $payload = [ 'success' => true, 'users' => $users, 'page' => $page];
-            return $this->handleSucess($payload);
+            $payload = ['users' => $users];
+            return $this->handleSucessPaginate($payload,$page);
         }else{
             return $this->handlePaginateNotFoundError($page);
         }

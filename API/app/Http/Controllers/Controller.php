@@ -42,4 +42,21 @@ class Controller extends BaseController
     public function handleSucess($payload){
         return response()->json($payload,200);
     }
+    public function handleSucessPaginate($payload,$page){
+        $page = intval($page);
+        $nextPage = $page + 1;
+        if($page > 1){
+            $previousPage = $page - 1;
+        }else{
+            $previousPage = null;
+        }
+        
+        return response()->json([
+           'success' => true,
+            ...$payload,
+            'page' => $page,
+            'next_page' => $nextPage, 
+            'previous_page' => $previousPage
+        ],200);
+    }
 }

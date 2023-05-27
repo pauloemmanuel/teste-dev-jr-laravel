@@ -43,8 +43,8 @@ class ServiceOrderController extends Controller
         }
 
         if($serviceOrders->count() > 0){
-            $payload = [ 'success' => true, 'service_orders' => $serviceOrders, 'page' => $page];
-            return $this->handleSucess($payload);
+            $payload = ['service_orders' => $serviceOrders];
+            return $this->handleSucessPaginate($payload,$page);
         }else{
             return $this->handlePaginateNotFoundError($page);
         }
