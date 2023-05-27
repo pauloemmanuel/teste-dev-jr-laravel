@@ -9,8 +9,8 @@ class ValidationMessages extends Model
 {
     use HasFactory;
 
-    public const REQUIRED = 'O campo :attribute é obrigatório.';
+    public const REQUIRED = 'O campo :attribute é obrigatório !';
     public const NUMERIC = 'O campo :attribute só pode haver numeros';
-
     public const ALPHA_DASH = 'Foram inseridos elementos inválidos para o campo :attribute';
+    public const MAX_DIGITS = 'Só são permitidos até :max digitos para o campo :attribute';
 }

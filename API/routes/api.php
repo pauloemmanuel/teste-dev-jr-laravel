@@ -2,6 +2,7 @@
 
 use App\Models\serviceOrders;
 use App\Http\Controllers\ServiceOrderController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,5 +30,10 @@ Route::prefix('service_orders')->group(function () {
     Route::get('/{page?}/{vehiclePlate?}', [ServiceOrderController::class, 'getServiceOrders']);
 });
 
+
+Route::prefix('users')->group(function () {
+    Route::get('/all', [UserController::class, 'getAllUsers']);
+    Route::get('/{page?}', [UserController::class, 'getUsers']);
+});
 
 

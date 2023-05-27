@@ -13,7 +13,8 @@ class ServiceOrderController extends Controller
     public function getAllServiceOrders(){
         $serviceOrders = serviceOrder::getAllServicesOrders();  
         if($serviceOrders->count() > 0){
-            return response()->json([ 'success' => true,'service_orders' => $serviceOrders],200);
+            $payload = [ 'success' => true,'service_orders' => $serviceOrders];
+            return $this->handleSucess($payload);
         }else{
             return $this->handleNotFoundItemsError();
         }
@@ -23,28 +24,29 @@ class ServiceOrderController extends Controller
         
         $validator = Validator::make(['page' => $page,'vehiclePlate' => $vehiclePlate], [
             'page' => 'nullable|numeric',
-            'vehiclePlate' => 'nullable|alpha_dash:ascii',
+            'vehiclePlate' => 'nullable|alpha_dash:ascii|max_digits:7',
         ],
         [
             'numeric' => ValidationMessages::NUMERIC,
             'alpha_dash' => ValidationMessages::ALPHA_DASH,
+            'max_digits' => ValidationMessages::MAX_DIGITS
         ]);
 
         if($validator->fails()){
-            return response()->json(['success' => false,'msg_erro' =>  $validator->errors()->first()],422);
+           return $this->handleValidationError($validator);
         }
 
         $serviceOrders = serviceOrder::getServicesOrdersByPage($page,$vehiclePlate);  
         
-        if($vehiclePlate !== false){
+        if($vehiclePlate != null){
             $serviceOrders->where('vehiclePlate',$vehiclePlate);
         }
-        
-            Log::debug($serviceOrders);
+
         if($serviceOrders->count() > 0){
-            return response()->json([ 'success' => true, 'service_orders' => $serviceOrders, 'page' => $page],200);
+            $payload = [ 'success' => true, 'service_orders' => $serviceOrders, 'page' => $page];
+            return $this->handleSucess($payload);
         }else{
-            return $this->handlePaginateGetError($page);
+            return $this->handlePaginateNotFoundError($page);
         }
 
     }
