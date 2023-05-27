@@ -16,5 +16,4 @@ CMD composer install && php-fpm && chown -R www-data:www-data storage
 COPY ./php.ini /usr/local/etc/php/conf.d/custom.ini
 
 
-RUN composer global require laravel/installer
 
