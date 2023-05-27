@@ -9,6 +9,9 @@ class User extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name'
+    ];
     protected $table = 'users';
 
     private const USERS_BY_PAGE = 5;

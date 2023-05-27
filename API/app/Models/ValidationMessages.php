@@ -16,4 +16,5 @@ class ValidationMessages extends Model
     public const DATE = 'Só são permitidos datas no campo :attribute, tente o seguinte formato: (dd-mm-yyyy ss:mm:HH)';
     public const DECIMAL = 'Só são permitidos números de até :max digitos para o campo :attribute';
     public const MAX = 'Só são permitidos valores de até :max para o campo :attribute';
+    public const STRING = 'Só são permitidos strings para o campo :attribute';
 }

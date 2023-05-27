@@ -13,7 +13,7 @@ class ServiceOrderController extends Controller
     public function getAllServiceOrders(){
         $serviceOrders = serviceOrder::getAllServicesOrders();  
         if($serviceOrders->count() > 0){
-            $payload = [ 'success' => true,'service_orders' => $serviceOrders];
+            $payload = ['service_orders' => $serviceOrders];
             return $this->handleSucess($payload);
         }else{
             return $this->handleNotFoundItemsError();
@@ -24,12 +24,12 @@ class ServiceOrderController extends Controller
         
         $validator = Validator::make(['page' => $page,'vehiclePlate' => $vehiclePlate], [
             'page' => 'nullable|numeric',
-            'vehiclePlate' => 'nullable|alpha_dash:ascii|max_digits:7',
+            'vehiclePlate' => 'nullable|alpha_dash:ascii|max:7',
         ],
         [
             'numeric' => ValidationMessages::NUMERIC,
             'alpha_dash' => ValidationMessages::ALPHA_DASH,
-            'max_digits' => ValidationMessages::MAX_DIGITS
+            'max' => ValidationMessages::MAX_DIGITS
         ]);
 
         if($validator->fails()){

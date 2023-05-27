@@ -34,6 +34,8 @@ Route::prefix('service_orders')->group(function () {
 Route::prefix('users')->group(function () {
     Route::get('/all', [UserController::class, 'getAllUsers']);
     Route::get('/{page?}', [UserController::class, 'getUsers']);
+
+    Route::post('/add', [UserController::class, 'addUser']);
 });
 
 

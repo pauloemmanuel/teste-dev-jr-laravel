@@ -40,7 +40,7 @@ class Controller extends BaseController
     }
 
     public static function handleSucess($payload){
-        return response()->json($payload,200);
+        return response()->json(['success' => true,...$payload],200);
     }
     public static function handleSucessPaginate($payload,$page){
         $page = intval($page);
@@ -58,5 +58,12 @@ class Controller extends BaseController
             'next_page' => $nextPage, 
             'previous_page' => $previousPage
         ],200);
+    }
+
+    public static function handleUnexpectedError($payload){
+        return response()->json([
+           'success' => false,
+           ...$payload
+        ],500);
     }
 }
