@@ -71,7 +71,7 @@ class ServiceOrderController extends Controller
                 $payload = ['service_order_id' => $service_order->id];
                 return $this->handleSucess($payload);
             }else{
-                $payload = ['erro' => self::ERROR_USER_NOT_FOUND];
+                $payload = ['error' => self::ERROR_USER_NOT_FOUND];
                 return $this->handleUnexpectedError($payload);
             }
         }catch(Exception $exception){
