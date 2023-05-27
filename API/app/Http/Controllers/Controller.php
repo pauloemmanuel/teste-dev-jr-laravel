@@ -14,7 +14,7 @@ class Controller extends BaseController
 
     public const MESSAGE_NOT_RETRIEVED_INFO_THIS_PAGE = "Não foi encontrado nenhuma informação nessa página";
 
-    public function handlePaginateNotFoundError($page){
+    public static function handlePaginateNotFoundError($page){
         if($page > 1){
             return response()->json([
                'success' => false,
@@ -28,21 +28,21 @@ class Controller extends BaseController
         }
     }
 
-    public function handleNotFoundItemsError(){
+    public static function handleNotFoundItemsError(){
         return response()->json([
             'success' => false,
             'message' => Controller::MESSAGE_NOT_RETRIEVED_INFO,
          ],404);
     }
 
-    public function handleValidationError($validator){
+    public static function handleValidationError($validator){
         return response()->json(['success' => false,'msg_erro' =>  $validator->errors()->first()],422);
     }
 
-    public function handleSucess($payload){
+    public static function handleSucess($payload){
         return response()->json($payload,200);
     }
-    public function handleSucessPaginate($payload,$page){
+    public static function handleSucessPaginate($payload,$page){
         $page = intval($page);
         $nextPage = $page + 1;
         if($page > 1){

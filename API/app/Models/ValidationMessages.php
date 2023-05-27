@@ -13,4 +13,7 @@ class ValidationMessages extends Model
     public const NUMERIC = 'O campo :attribute só pode haver numeros';
     public const ALPHA_DASH = 'Foram inseridos elementos inválidos para o campo :attribute';
     public const MAX_DIGITS = 'Só são permitidos até :max digitos para o campo :attribute';
+    public const DATE = 'Só são permitidos datas no campo :attribute, tente o seguinte formato: (dd-mm-yyyy ss:mm:HH)';
+    public const DECIMAL = 'Só são permitidos números de até :max digitos para o campo :attribute';
+    public const MAX = 'Só são permitidos valores de até :max para o campo :attribute';
 }
