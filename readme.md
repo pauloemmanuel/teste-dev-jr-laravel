@@ -22,28 +22,32 @@ docker-compose build
 docker-compose up 
 ```
 
-4. Abra o container do php
+4. Na pasta API, há um .env.example, copie e cole ele no mesmo arquivo e renomeie para .env 
+
+![imagemenv](readme_imgs/imagemenv.png)
+
+5. Abra o container do php
 
 ```shell 
 docker-compose exec php bash
 ```
 
-5. Rode o comando composer update para atualização e instalação dos pacotes (Isso pode demorar um pouco)
+6. Rode o comando composer update para atualização e instalação dos pacotes (Isso pode demorar um pouco)
 
 ```shell
 # É possível adicionar -o a frente para que gere arquivos otimizados
 composer update
 ```
 
-6. Rode o comando php artisan migrate para que sejam criadas as tabelas no banco
+7. Rode o comando php artisan migrate para que sejam criadas as tabelas no banco
 
 ```shell
 php artisan migrate
 ```
 
-7. Importe a collection na pasta PostmanCollection na raiz do projeto para o seu Postman
+8. Importe a collection na pasta PostmanCollection na raiz do projeto para o seu Postman
 
-8. Seu ambiente está pronto para ser usado ! 
+9. Seu ambiente está pronto para ser usado ! 
 
 <br>
 
