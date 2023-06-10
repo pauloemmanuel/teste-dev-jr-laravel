@@ -63,6 +63,10 @@ Os dados para acessar via SGBD são:
   "porta": 5441
 ```
 
+# Imagem do projeto no DockerHub
+
+[Imagem Docker](https://hub.docker.com/layers/pefokun/teste-dev-php/latest/images/sha256:8fc6f96e7782f8758d9eded5065d95a4d2ca449b6658afc6f40de71daff329e0)
+
 # TroubleShooting
 
 Se o projeto não rodou com sucesso aqui vai algumas sugestões: 
